@@ -38,7 +38,7 @@
    <bottom>
       <AnchorPane prefHeight="391.0" prefWidth="327.0" style="-fx-background-color: dark grey;" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox layoutX="45.0" layoutY="80.0" prefHeight="25.0" prefWidth="259.0" promptText="Select Car Model" />
+            <ComboBox fx:id="modelBox" layoutX="45.0" layoutY="80.0" prefHeight="25.0" prefWidth="259.0" promptText="Select Car Model" />
             <Label layoutX="48.0" layoutY="59.0" prefHeight="21.0" prefWidth="56.0" text="Model:" textFill="#1a1a1a">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -55,25 +55,25 @@
                </font>
             </Label>
             <ComboBox layoutX="92.0" layoutY="119.0" prefHeight="25.0" prefWidth="211.0" promptText=" Select Year Range" />
-            <Label layoutX="42.0" layoutY="196.0" text="Fuel Capacity: 0 Litres" textFill="#1a1a1a">
+            <Label fx:id="fuelTankLabel" layoutX="42.0" layoutY="195.0" text="Fuel Tank:" textFill="#1a1a1a">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
             <Button layoutX="184.0" layoutY="281.0" mnemonicParsing="false" onAction="#SwitchToScene2" prefHeight="30.0" prefWidth="91.0" style="-fx-background-color: #2255A4;" text="Accept" textFill="WHITE" />
             <Button layoutX="42.0" layoutY="281.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" style="-fx-background-color: #DADADA;" text="Cancel" textFill="#1a1a1a" />
-            <ComboBox layoutX="45.0" layoutY="24.0" prefHeight="25.0" prefWidth="259.0" promptText="Select Car Brand" />
+            <ComboBox fx:id="brandBox" layoutX="45.0" layoutY="24.0" prefHeight="25.0" prefWidth="259.0" promptText="Select Car Brand" />
             <Label layoutX="125.0" layoutY="160.0" text="Fuel Info:" textFill="#1a1a1a">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="41.0" layoutY="238.0" text="Full Tank Price: R 0.00" textFill="#1a1a1a">
+            <Label fx:id="priceLabel" layoutX="42.0" layoutY="216.0" text="Full Tank Price: " textFill="#1a1a1a">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="42.0" layoutY="217.0" text="Current Fuel Price: R 0.00" textFill="#1a1a1a">
+            <Label layoutX="42.0" layoutY="237.0" text="Current Fuel Price: R 0.00" textFill="#1a1a1a">
                <font>
                   <Font size="15.0" />
                </font>
