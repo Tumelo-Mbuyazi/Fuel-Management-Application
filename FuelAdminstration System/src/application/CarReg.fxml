@@ -54,7 +54,7 @@
                   <Image url="@../images/icon.png" />
                </image>
             </ImageView>
-            <Button layoutX="54.0" layoutY="230.0" mnemonicParsing="false" onAction="#SwitchToScene2" prefHeight="25.0" prefWidth="225.0" style="-fx-background-color: #2255A4;" text="Register" textFill="WHITE" />
+            <Button layoutX="54.0" layoutY="230.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="25.0" prefWidth="225.0" style="-fx-background-color: #2255A4;" text="Register" textFill="WHITE" />
             <Button layoutX="51.0" layoutY="265.0" mnemonicParsing="false" onAction="#SwitchToScene4" prefHeight="25.0" prefWidth="230.0" style="-fx-background-color: #DADADA;" text="Back" textFill="#1a1a1a">
                <font>
                   <Font name="System Bold" size="12.0" />

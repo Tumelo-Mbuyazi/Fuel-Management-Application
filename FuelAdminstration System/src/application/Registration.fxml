@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="327.0" style="-fx-background-color: #A9B7C4;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SceneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="327.0" style="-fx-background-color: #A9B7C4;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SceneController">
    <top>
       <AnchorPane prefHeight="125.0" prefWidth="391.0" style="-fx-background-color: light blue;" BorderPane.alignment="CENTER">
          <children>
@@ -47,7 +47,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="122.0" layoutY="24.0" prefHeight="25.0" prefWidth="163.0" promptText="sane" />
+            <TextField fx:id="nameField" layoutX="122.0" layoutY="24.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Name" />
             <Label layoutX="24.0" layoutY="101.0" text="Password:">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -58,26 +58,27 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <PasswordField layoutX="122.0" layoutY="98.0" prefHeight="25.0" prefWidth="161.0" promptText="password" />
-            <TextField layoutX="122.0" layoutY="62.0" prefHeight="25.0" prefWidth="161.0" promptText="e.g mabuza" />
+            <PasswordField fx:id="passwordField" layoutX="122.0" layoutY="98.0" prefHeight="25.0" prefWidth="161.0" promptText="password" />
+            <TextField layoutX="122.0" layoutY="62.0" prefHeight="25.0" prefWidth="161.0" promptText="Enter Your Last Name" />
             <TextField layoutX="123.0" layoutY="140.0" promptText="E@gmail.com">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </TextField>
             <TextField layoutX="135.0" layoutY="178.0" promptText="e.g +27......." />
-            <Button layoutX="62.0" layoutY="223.0" mnemonicParsing="false" onAction="#SwitchToScene1" prefHeight="30.0" prefWidth="225.0" style="-fx-background-color: #2255A4;" text="Next" textFill="WHITE" />
+            <Button layoutX="62.0" layoutY="223.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="30.0" prefWidth="225.0" style="-fx-background-color: #2255A4;" text="Register" textFill="WHITE" />
             <Label layoutX="27.0" layoutY="143.0" text="Email:">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Hyperlink layoutX="125.0" layoutY="260.0" onAction="#SwitchToScene3" text="Back to login" />
-            <ImageView fitHeight="21.0" fitWidth="31.0" layoutX="104.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
+            <Hyperlink layoutX="125.0" layoutY="300.0" onAction="#SwitchToScene3" text="Back to login" />
+            <ImageView fitHeight="21.0" fitWidth="31.0" layoutX="104.0" layoutY="301.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/back.png" />
                </image>
             </ImageView>
+            <Button layoutX="62.0" layoutY="262.0" mnemonicParsing="false" onAction="#SwitchToScene1" prefHeight="30.0" prefWidth="225.0" style="-fx-background-color: #DADADA;" text="Register Your Car" />
          </children>
       </AnchorPane>
    </left>

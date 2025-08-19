@@ -15,6 +15,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class SceneController implements Initializable {
@@ -23,24 +27,57 @@ public class SceneController implements Initializable {
     private Scene scene;
     private Parent root;
 
-    // FuelPage components
+    //  FuelPage components 
+    @FXML
+    private TextField litresField;  
     @FXML
     private ComboBox<String> brandBox;
-
     @FXML
     private ComboBox<String> modelBox;
-
+    @FXML
+    private ComboBox<String> fuelTypeBox;
     @FXML
     private Label fuelTankLabel;
-
     @FXML
     private Label priceLabel;
+    @FXML
+    private Label fuelPriceLabel;
 
-    // Detailed car data: Brand -> Model -> {FuelTank, Price}
-    private final Map<String, Map<String, String[]>> carDataDetailed = new HashMap<>();
+    //  PaymentPage components 
+    @FXML
+    private Label carSummaryLabel;   
+    @FXML
+    private TextField discountField; 
+    @FXML
+    private Label finalAmountLabel;  
 
-    // ================== Scene Switching ==================
+    //  Login
+    @FXML
+    private TextField usernameField;       // CoverPage username
+    @FXML
+    private PasswordField loginPasswordField; // CoverPage password
+    @FXML
+    private TextField nameField;           // Registration name
+    @FXML
+    private PasswordField passwordField;   // Registration password
 
+    // Store data
+    private String selectedBrand;
+    private String selectedModel;
+    private String selectedFuelType;
+    private int tankLitres;
+    private double pricePerLitre;
+    private double litresChosen; 
+
+    // Registered users 
+    private static final Map<String, String> registeredUsers = new HashMap<>();
+
+    // Car + Fuel Data
+    private final Map<String, Map<String, Integer>> carDataDetailed = new HashMap<>();
+    private final double petrolPricePerLitre = 23.50;
+    private final double dieselPricePerLitre = 21.80;
+
+    //  Scene Switching 
     public void SwitchToScene1(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("CarReg.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -50,7 +87,25 @@ public class SceneController implements Initializable {
     }
 
     public void SwitchToScene2(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Payment.fxml"));
+        if (litresField != null) {
+            String litresText = litresField.getText();
+            if (litresText == null || litresText.isEmpty()) {
+                litresChosen = tankLitres;
+            } else {
+                try {
+                    litresChosen = Double.parseDouble(litresText);
+                } catch (NumberFormatException e) {
+                    litresChosen = tankLitres;
+                }
+            }
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Payment.fxml"));
+        root = loader.load();
+
+        SceneController controller = loader.getController();
+        controller.loadPaymentSummary(selectedBrand, selectedModel, selectedFuelType, tankLitres, pricePerLitre, litresChosen);
+
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -85,9 +140,8 @@ public class SceneController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FuelPage.fxml"));
         root = loader.load();
 
-        // Get the controller of FuelPage (this class)
         SceneController controller = loader.getController();
-        controller.setupFuelPage(); // Fill dropdowns
+        controller.setupFuelPage();
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -95,69 +149,150 @@ public class SceneController implements Initializable {
         stage.show();
     }
 
-    // ================== Fuel Page Logic ==================
-    private void setupFuelPage() {
-        // Toyota
-        Map<String, String[]> toyota = new HashMap<>();
-        toyota.put("Corolla", new String[]{"50 L", "R1,200"});
-        toyota.put("Hilux", new String[]{"80 L", "R1,900"});
-        toyota.put("Fortuner", new String[]{"70 L", "R1,750"});
+    //  Fuel Page 
+    protected void setupFuelPage() {
+        Map<String, Integer> toyota = new HashMap<>();
+        toyota.put("Corolla", 50);
+        toyota.put("Hilux", 80);
+        toyota.put("Fortuner", 70);
         carDataDetailed.put("Toyota", toyota);
 
-        // Volkswagen
-        Map<String, String[]> vw = new HashMap<>();
-        vw.put("Polo", new String[]{"45 L", "R1,050"});
-        vw.put("Golf", new String[]{"55 L", "R1,280"});
-        vw.put("Tiguan", new String[]{"65 L", "R1,500"});
+        Map<String, Integer> vw = new HashMap<>();
+        vw.put("Polo", 45);
+        vw.put("Golf", 55);
+        vw.put("Tiguan", 65);
         carDataDetailed.put("Volkswagen", vw);
 
-        // BMW
-        Map<String, String[]> bmw = new HashMap<>();
-        bmw.put("3 Series", new String[]{"59 L", "R1,350"});
-        bmw.put("5 Series", new String[]{"66 L", "R1,550"});
-        bmw.put("X5", new String[]{"83 L", "R1,950"});
+        Map<String, Integer> bmw = new HashMap<>();
+        bmw.put("3 Series", 59);
+        bmw.put("5 Series", 66);
+        bmw.put("X5", 83);
         carDataDetailed.put("BMW", bmw);
 
-        // Mercedes-Benz
-        Map<String, String[]> merc = new HashMap<>();
-        merc.put("C-Class", new String[]{"66 L", "R1,520"});
-        merc.put("E-Class", new String[]{"80 L", "R1,850"});
-        merc.put("GLA", new String[]{"50 L", "R1,300"});
+        Map<String, Integer> merc = new HashMap<>();
+        merc.put("C-Class", 66);
+        merc.put("E-Class", 80);
+        merc.put("GLA", 50);
         carDataDetailed.put("Mercedes-Benz", merc);
 
-        // Ford
-        Map<String, String[]> ford = new HashMap<>();
-        ford.put("Ranger", new String[]{"80 L", "R1,900"});
-        ford.put("Fiesta", new String[]{"42 L", "R980"});
-        ford.put("Focus", new String[]{"55 L", "R1,280"});
+        Map<String, Integer> ford = new HashMap<>();
+        ford.put("Ranger", 80);
+        ford.put("Fiesta", 42);
+        ford.put("Focus", 55);
         carDataDetailed.put("Ford", ford);
 
-        // Populate brands
         brandBox.getItems().addAll(carDataDetailed.keySet());
+        fuelTypeBox.getItems().addAll("Petrol", "Diesel");
 
-        // When brand changes → update models
         brandBox.setOnAction(e -> {
-            String selectedBrand = brandBox.getValue();
+            String b = brandBox.getValue();
             modelBox.getItems().clear();
-            if (selectedBrand != null) {
-                modelBox.getItems().addAll(carDataDetailed.get(selectedBrand).keySet());
-            }
+            if (b != null) modelBox.getItems().addAll(carDataDetailed.get(b).keySet());
         });
+        modelBox.setOnAction(e -> calculateFuelCost());
+        fuelTypeBox.setOnAction(e -> calculateFuelCost());
+    }
 
-        // When model changes → show details
-        modelBox.setOnAction(e -> {
-            String selectedBrand = brandBox.getValue();
-            String selectedModel = modelBox.getValue();
-            if (selectedBrand != null && selectedModel != null) {
-                String[] details = carDataDetailed.get(selectedBrand).get(selectedModel);
-                fuelTankLabel.setText("Fuel Tank: " + details[0]);
-                priceLabel.setText("Full Tank Price: " + details[1]);
-            }
-        });
+    private void calculateFuelCost() {
+        selectedBrand = brandBox.getValue();
+        selectedModel = modelBox.getValue();
+        selectedFuelType = fuelTypeBox.getValue();
+
+        if (selectedBrand != null && selectedModel != null && selectedFuelType != null) {
+            tankLitres = carDataDetailed.get(selectedBrand).get(selectedModel);
+            pricePerLitre = selectedFuelType.equals("Diesel") ? dieselPricePerLitre : petrolPricePerLitre;
+            double totalCost = tankLitres * pricePerLitre;
+
+            fuelTankLabel.setText("Fuel Tank: " + tankLitres + " L");
+            fuelPriceLabel.setText(String.format("Current %s Price: R%.2f / L", selectedFuelType, pricePerLitre));
+            priceLabel.setText(String.format("Full Tank Price (%s): R%.2f", selectedFuelType, totalCost));
+        }
+    }
+
+    // Payment Page 
+    protected void loadPaymentSummary(String brand, String model, String fuelType, int tankLitres, double pricePerLitre, double litresChosen) {
+        this.selectedBrand = brand;
+        this.selectedModel = model;
+        this.selectedFuelType = fuelType;
+        this.tankLitres = tankLitres;
+        this.pricePerLitre = pricePerLitre;
+        this.litresChosen = litresChosen;
+
+        if (carSummaryLabel != null) {
+            double total = litresChosen * pricePerLitre;
+            carSummaryLabel.setText(
+                String.format("Brand: %s\nModel: %s\nFuel: %s\nLitres: %.2f (Tank: %d L)\nPrice/L: R%.2f\nTotal: R%.2f",
+                    brand, model, fuelType, litresChosen, tankLitres, pricePerLitre, total)
+            );
+        }
+    }
+
+    @FXML
+    private void confirmPayment(ActionEvent event) {
+        try {
+            double discount = discountField.getText().isEmpty() ? 0 : Double.parseDouble(discountField.getText());
+            double total = litresChosen * pricePerLitre;
+            double finalAmount = total - discount;
+
+            finalAmountLabel.setText(String.format("R%.2f", finalAmount));
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Payment Summary");
+            alert.setHeaderText("Fuel Purchase Summary");
+            alert.setContentText(
+                String.format("Car: %s %s\nFuel: %s\nLitres: %.2f\nPrice/L: R%.2f\nDiscount: R%.2f\nFinal Amount: R%.2f",
+                    selectedBrand, selectedModel, selectedFuelType, litresChosen, pricePerLitre, discount, finalAmount)
+            );
+            alert.showAndWait();
+
+        } catch (NumberFormatException e) {
+            new Alert(AlertType.ERROR, "Invalid discount entered!").showAndWait();
+        }
+    }
+
+    //Login part
+    @FXML
+    private void login(ActionEvent event) throws IOException {
+        String username = usernameField.getText().trim();
+        String password = loginPasswordField.getText().trim();
+
+        if(username.isEmpty() || password.isEmpty()) {
+            new Alert(AlertType.ERROR, "Please enter username and password!").showAndWait();
+            return;
+        }
+
+        if(registeredUsers.containsKey(username) && registeredUsers.get(username).equals(password)) {
+            SwitchToScene6(event);
+        } else {
+            new Alert(AlertType.ERROR, "Invalid username or password!").showAndWait();
+        }
+    }
+
+    // Registration
+    @FXML
+    private void registerUser(ActionEvent event) throws IOException {
+        String username = nameField.getText().trim();
+        String password = passwordField.getText().trim();
+
+        if(username.isEmpty() || password.isEmpty()) {
+            new Alert(AlertType.ERROR, "Username and password cannot be empty!").showAndWait();
+            return;
+        }
+
+        if(registeredUsers.containsKey(username)) {
+            new Alert(AlertType.ERROR, "Username already exists!").showAndWait();
+            return;
+        }
+
+        registeredUsers.put(username, password);
+        new Alert(AlertType.INFORMATION, "Registration successful!").showAndWait();
+
+        // Return to login page
+        SwitchToScene3(event);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Runs for any page using this controller
+        
     }
-}
+}  

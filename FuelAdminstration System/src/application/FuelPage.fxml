@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -49,35 +50,41 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="48.0" layoutY="121.0" text="Year:" textFill="#1a1a1a">
+            <Label layoutX="48.0" layoutY="121.0" text="Fuel-Type:" textFill="#1a1a1a">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <ComboBox layoutX="92.0" layoutY="119.0" prefHeight="25.0" prefWidth="211.0" promptText=" Select Year Range" />
-            <Label fx:id="fuelTankLabel" layoutX="42.0" layoutY="195.0" text="Fuel Tank:" textFill="#1a1a1a">
+            <ComboBox fx:id="fuelTypeBox" layoutX="125.0" layoutY="119.0" prefHeight="25.0" prefWidth="178.0" promptText="Select Fuel-Type" />
+            <Label fx:id="fuelTankLabel" layoutX="39.0" layoutY="224.0" text="Fuel Tank:" textFill="#1a1a1a">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button layoutX="184.0" layoutY="281.0" mnemonicParsing="false" onAction="#SwitchToScene2" prefHeight="30.0" prefWidth="91.0" style="-fx-background-color: #2255A4;" text="Accept" textFill="WHITE" />
-            <Button layoutX="42.0" layoutY="281.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" style="-fx-background-color: #DADADA;" text="Cancel" textFill="#1a1a1a" />
+            <Button layoutX="188.0" layoutY="311.0" mnemonicParsing="false" onAction="#SwitchToScene2" prefHeight="30.0" prefWidth="91.0" style="-fx-background-color: #2255A4;" text="Accept" textFill="WHITE" />
+            <Button layoutX="42.0" layoutY="311.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="99.0" style="-fx-background-color: #DADADA;" text="Cancel" textFill="#1a1a1a" />
             <ComboBox fx:id="brandBox" layoutX="45.0" layoutY="24.0" prefHeight="25.0" prefWidth="259.0" promptText="Select Car Brand" />
-            <Label layoutX="125.0" layoutY="160.0" text="Fuel Info:" textFill="#1a1a1a">
+            <Label layoutX="108.0" layoutY="192.0" text="Fuel Info:" textFill="#1a1a1a">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="priceLabel" layoutX="42.0" layoutY="216.0" text="Full Tank Price: " textFill="#1a1a1a">
+            <Label fx:id="priceLabel" layoutX="40.0" layoutY="246.0" text="Full Tank Price: " textFill="#1a1a1a">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="42.0" layoutY="237.0" text="Current Fuel Price: R 0.00" textFill="#1a1a1a">
+            <Label fx:id="fuelPriceLabel" layoutX="39.0" layoutY="268.0" text="Current Fuel Price: R 0.00" textFill="#1a1a1a">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
+            <Label layoutX="52.0" layoutY="158.0" text="Litres:" textFill="#1a1a1a">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="litresField" layoutX="100.0" layoutY="155.0" prefHeight="25.0" prefWidth="203.0" promptText="Enter Litres Of Your Choice" />
          </children>
       </AnchorPane>
    </bottom>
