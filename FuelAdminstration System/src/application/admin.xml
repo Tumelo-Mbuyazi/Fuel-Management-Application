@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Admins>
+    <Admin id="1">
+        <Username>superadmin</Username>
+        <Password>admin123</Password>
+    </Admin>
+
+    <Admin id="2">
+        <Username>fuelmanager</Username>
+        <Password>manager456</Password>
+    </Admin>
+
+    <Admin id="3">
+        <Username>auditor</Username>
+        <Password>audit789</Password>
+    </Admin>
+</Admins>

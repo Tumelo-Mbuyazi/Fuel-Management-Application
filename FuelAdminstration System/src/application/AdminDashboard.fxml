@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SceneController">
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #f0f4ff; -fx-padding: 10;" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" text="Logout" />
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Admin Dashboard">
+               <HBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </HBox.margin></Label>
+            <Button mnemonicParsing="false" text="Send SMS" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="160.0" spacing="5.0" style="-fx-background-color: #e3f2fd; -fx-padding: 15; -fx-background-radius: 8;">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Total Users" />
+                        <Label style="-fx-font-size: 22px;" text="*Number of Users*" />
+                     </children></VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="160.0" spacing="5.0" style="-fx-background-color: #e3f2fd; -fx-padding: 15; -fx-background-radius: 8;">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Pending Requests" />
+                        <Label style="-fx-font-size: 22px;" text="*Number*" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="160.0" spacing="5.0" style="-fx-background-color: #e3f2fd; -fx-padding: 15; -fx-background-radius: 8;">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Total Purchases" />
+                        <Label style="-fx-font-size: 22px;" text="*Number*" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="160.0" spacing="5.0" style="-fx-background-color: #e3f2fd; -fx-padding: 15; -fx-background-radius: 8;">
+                     <children>
+                        <Label style="-fx-font-weight: bold;" text="Scheduled Payments" />
+                        <Label style="-fx-font-size: 22px;" text="*Number*" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Fuel Requests">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="User Management">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                  <Tab text="Purchase History">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Scheduled Payments">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="All Purchase History" />
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="colVehicle" prefWidth="120.0" text="User" />
+                      <TableColumn fx:id="colUser" prefWidth="120.0" text="Vehicle" />
+                        <TableColumn fx:id="colFuelAmount" prefWidth="100.0" text="Fuel Amount" />
+                        <TableColumn fx:id="colTotalAmount" prefWidth="100.0" text="Total Amount" />
+                        <TableColumn fx:id="colPaymentStatus" prefWidth="120.0" text="Payment Status" />
+                        <TableColumn fx:id="colPurchaseDate" prefWidth="150.0" text="Purchase Date" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   
+   
+   
+</BorderPane>

@@ -1,5 +1,7 @@
 package application;
 
+import application.ReadAdminFile;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 
 public class SceneController implements Initializable {
@@ -49,7 +52,7 @@ public class SceneController implements Initializable {
     @FXML
     private TextField discountField; 
     @FXML
-    private Label finalAmountLabel;  
+    private Label finalAmountLabel; 
 
     //  Login
     @FXML
@@ -60,6 +63,8 @@ public class SceneController implements Initializable {
     private TextField nameField;           // Registration name
     @FXML
     private PasswordField passwordField;   // Registration password
+    @FXML
+    private CheckBox cbAdmin;  // Admin checkbox (checked = Admin, uncheckef = not-admin)
 
     // Store data
     private String selectedBrand;
@@ -138,6 +143,19 @@ public class SceneController implements Initializable {
 
     public void SwitchToScene6(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FuelPage.fxml"));
+        root = loader.load();
+
+        SceneController controller = loader.getController();
+        controller.setupFuelPage();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void SwitchToScene7(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminDashboard.fxml"));
         root = loader.load();
 
         SceneController controller = loader.getController();
@@ -255,7 +273,9 @@ public class SceneController implements Initializable {
     private void login(ActionEvent event) throws IOException {
         String username = usernameField.getText().trim();
         String password = loginPasswordField.getText().trim();
+        boolean isAdmin = cbAdmin.isSelected();
 
+       if (!isAdmin) {
         if(username.isEmpty() || password.isEmpty()) {
             new Alert(AlertType.ERROR, "Please enter username and password!").showAndWait();
             return;
@@ -266,6 +286,19 @@ public class SceneController implements Initializable {
         } else {
             new Alert(AlertType.ERROR, "Invalid username or password!").showAndWait();
         }
+       }
+       else {
+    	   if(username.isEmpty() || password.isEmpty()) {
+               new Alert(AlertType.ERROR, "Please enter username and password!").showAndWait();
+               return;
+           }
+
+           if(ReadAdminFile.validateAdmin(username, password)) {
+               SwitchToScene7(event);
+           } else {
+               new Alert(AlertType.ERROR, "Invalid username or password!").showAndWait();
+           }
+       }
     }
 
     // Registration
