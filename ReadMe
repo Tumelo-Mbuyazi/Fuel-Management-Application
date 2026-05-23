@@ -1,108 +1,368 @@
-# Car Fuel Management Application
+# ⛽ Car Fuel Management Application
 
-**An app that helps South Africans buy fuel at discounted rates based on their loyalty**
+<div align="center">
 
-I built this app to solve a simple problem - fuel is expensive, and loyal customers should get better deals. The app tracks how often someone buys fuel through us and gives them bigger discounts the more they use the service.
+![Platform](https://img.shields.io/badge/Platform-Android-brightgreen?style=for-the-badge)
+![Language](https://img.shields.io/badge/Language-Java-orange?style=for-the-badge)
+![Database](https://img.shields.io/badge/Database-File%20I%2FO-blue?style=for-the-badge)
+![Validation](https://img.shields.io/badge/Validation-HomeAffairs%20%7C%20SAPS-red?style=for-the-badge)
+![Payments](https://img.shields.io/badge/Payments-Google%20Pay%20%7C%20Debit%20Order-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Development-yellow?style=for-the-badge)
 
-## What does this app actually do?
+</div>
 
-Think of it like a fuel subscription service. You sign up, register your car, and buy fuel through us once per month. Your first purchase costs 125% of the fuel price (ouch, I know). But if you pay on time and keep using the service, your price drops - eventually down to just 25% of the fuel price.
+---
 
-**The discount system works like this:**
+# 🚗 Car Fuel Management Application
 
-| Purchase # | What you pay |
-|------------|--------------|
-| 1st time | 125% of fuel price |
-| 2nd purchase | 118.75% (6.25% off) |
-| 3rd purchase | 112.5% (another 6.25% off) |
-| ... continues ... | |
-| After 12 purchases | 25% of fuel price |
+**An app that helps South Africans buy fuel at discounted rates based on loyalty**
 
-Yes, you read that right. Loyal customers eventually pay only a quarter of what fuel actually costs.
+I built this app to solve a simple problem — fuel is expensive, and loyal customers should get better deals. The app tracks how often someone buys fuel through the platform and rewards them with bigger discounts over time.
 
-## How registration works
+The more consistently customers use the service, the less they eventually pay for fuel.
 
-**Step 1: Personal details**
-- Name, surname, ID number, home address, car registration
-- Your ID gets validated with Home Affairs (we check you're a real South African)
-- Your car registration gets checked with Traffic Department (is the car roadworthy?)
-- Also checked with SAPS (is the car stolen?)
+---
 
-**Step 2: Car details**
-- Pick your car model from a dropdown list
-- The system knows your fuel tank size (data from AA South Africa)
-- It calculates your full tank price using current fuel prices (from PetroleumSA)
+# 📱 What Does This App Actually Do?
 
-**Step 3: Accept or decline**
-- You see the quotation and decide if you want to proceed
-- If yes, you choose a repayment date (within 30 days)
-- Payment happens via debit order or card
+Think of it like a fuel subscription system.
 
-## The rules (important bit)
+A customer:
 
-**For consistent customers (using service every month):**
-- First purchase: 125% of fuel price
-- Each successful on-time payment gives you 6.25% discount for next purchase
-- After 12 months of consistent use, you pay only 25% of fuel price
-- After one year, benefits reset but you start at 5% discount (not zero)
+- Registers their personal details
+- Registers their vehicle
+- Purchases fuel once per month
+- Pays back the fuel amount later
+- Earns discounts for consistent repayments
 
-**For non-consistent customers (skip months):**
-- Use service 4-11 times per year → 2.5% discount in year 2
-- Use service less than 3 times per year → 1% discount in year 2
-- You can upgrade to higher discounts if you become consistent
+At first, the customer pays more than the fuel amount. But over time, their repayment decreases until they eventually pay only 25% of the fuel price.
 
-**One important rule:** You can only buy fuel once per month. No exceptions.
+---
 
-## How I built this
+# 📉 Discount System
 
-**Frontend:** Android (Java, XML layouts)
-**Backend:** Java with file I/O for validations
+| Purchase Number | Repayment Amount |
+|----------------|------------------|
+| 1st Purchase | 125% of fuel price |
+| 2nd Purchase | 118.75% |
+| 3rd Purchase | 112.5% |
+| 4th Purchase | 106.25% |
+| ... | Continues decreasing |
+| After 12 Purchases | 25% of fuel price |
 
-The app has 4 main screens:
+✅ Customers who consistently pay on time receive better discounts.
 
-1. **Registration & Login** - Username and password
-2. **Personal Details** - Name, ID, address, car registration
-3. **Car Details** - Select model, see fuel capacity and price
-4. **Payment Summary** - Quotation and repayment options
+---
 
-## Validations (the tricky part)
+# 👤 Registration Process
 
-This was the hardest part to implement:
+## Step 1 — Personal Information
 
-**ID Number Validation:**
-- Must be a valid South African ID
-- Verified through a custom "Home Affairs" validation system
-- Uses Java file I/O to read from validation files
+The customer enters:
 
-**Car Registration Validation:**
-- Must match format of one of 9 South African provinces
-- Verified with custom "Traffic Department" system
-- Checked against "SAPS" stolen vehicle database
-- All using Java file I/O strategy
+- Name & surname
+- South African ID number
+- Home address
+- Vehicle registration number
 
-**Province registration formats:**
-- Gauteng: XX XX XX GP
-- Western Cape: XX XX XX WC
-- KwaZulu-Natal: XX XX XX ZN
-- (and so on for all 9 provinces)
+---
 
-**Car Model Validation:**
-- Car models come from AA South Africa data
-- Includes fuel tank capacity for each model
-- Periodically updated when new cars come out
+# ✅ Validations
 
-**Fuel Prices:**
-- Current prices from PetroleumSA
-- Updated when fuel prices change (regular hikes/reductions)
+## 🪪 ID Number Validation
 
-## Payment API
+The system checks the South African ID number using a custom Home Affairs validation system.
 
-We need to integrate a payment API for:
-- Debit orders
-- Card payments
+The goal is to ensure:
+
+- The person is a real South African citizen
+- The customer can be traced
+
+Validation is handled using Java File I/O.
+
+---
+
+## 🚓 Vehicle Registration Validation
+
+The car registration is validated against:
+
+- Traffic Department database
+- SAPS stolen vehicle records
+
+The system checks:
+
+- If the car is roadworthy
+- If the vehicle is not stolen
+
+---
+
+## 📍 Province Registration Validation
+
+The registration number must match South African province formats.
+
+Examples:
+
+| Province | Example Format |
+|----------|----------------|
+| Gauteng | XX XX XX GP |
+| KwaZulu-Natal | XX XX XX ZN |
+| Western Cape | XX XX XX WC |
+| Mpumalanga | XX XX XX MP |
+
+The app uses Java exception handling and regex validation.
+
+---
+
+# 📷 Vehicle Image Capture
+
+The system captures a picture of the car together with its registration plate.
+
+The photo may be captured from:
+
+- Front view
+- Back view
+
+This helps with verification and fraud prevention.
+
+---
+
+# 🚘 Vehicle Registration
+
+## Car Selection
+
+The customer chooses a vehicle from a dropdown list.
+
+Vehicle data comes from:
+
+- Automobile Association of South Africa (AA)
+
+The app automatically generates:
+
+- Fuel tank capacity
+- Estimated full tank cost
+
+---
+
+# ⛽ Fuel Quotation System
+
+Fuel prices are obtained from:
+
+- PetroleumSA
+
+The system calculates:
+
+- Current fuel price
+- Full tank cost
+- Discount amount
+- Total repayment amount
+
+---
+
+# 💳 Payment Process
+
+Customers can choose:
+
+- Debit Order
+- Card Payment
 - Google Pay
-- Other electronic payments
+- Other electronic payment methods
 
-(This part is still in progress - looking at options like PayFast, Yoco, or Stitch)
+The customer also selects a repayment date within 30 days.
 
-## Project structure
+---
+
+# 🎯 Consistent Customer Benefits
+
+Customers who consistently use the service receive better rewards.
+
+## Rules
+
+- Fuel can only be purchased once per month
+- First-time customers repay 125%
+- Each successful repayment earns a 6.25% discount
+- Discounts improve gradually over time
+- After enough consistent usage, customers eventually pay only 25%
+
+---
+
+# ⚠️ Non-Consistent Customer Benefits
+
+Customers who skip months still receive smaller benefits.
+
+| Usage Per Year | Discount |
+|----------------|----------|
+| 4–11 times | 2.5% |
+| Less than 3 times | 1% |
+
+Customers can improve their discount level by becoming more consistent.
+
+---
+
+# 🛠️ Technologies Used
+
+| Technology | Purpose |
+|------------|---------|
+| Java | Main programming language |
+| Android Studio | Development |
+| XML Layouts | User interface |
+| Java File I/O | Validation system |
+| Regex | Registration validation |
+| APIs | Payment integration |
+| OOP | Business logic |
+
+---
+
+# 🏗️ Project Structure
+
+```text
+CarFuelManagement/
+│
+├── frontend/
+│   ├── activities/
+│   │   ├── LoginActivity.java
+│   │   ├── RegisterActivity.java
+│   │   ├── CarDetailsActivity.java
+│   │   └── PaymentActivity.java
+│   │
+│   └── layouts/
+│       ├── activity_login.xml
+│       ├── activity_register.xml
+│       ├── activity_car_details.xml
+│       └── activity_payment.xml
+│
+├── backend/
+│   ├── validation/
+│   │   ├── IDValidator.java
+│   │   ├── CarRegValidator.java
+│   │   └── ProvinceValidator.java
+│   │
+│   ├── pricing/
+│   │   ├── FuelPriceCalculator.java
+│   │   └── DiscountCalculator.java
+│   │
+│   ├── data/
+│   │   ├── CarModelData.java
+│   │   └── FuelPriceData.java
+│   │
+│   └── files/
+│       ├── stolen_cars.txt
+│       ├── roadworthy_cars.txt
+│       └── id_verification.txt
+│
+└── payment/
+    └── PaymentAPI.java
+```
+
+---
+
+# 🧠 Discount Calculation Logic
+
+```java
+// First purchase
+double repayment = fuelPrice * 1.25;
+
+// Discount progression
+double discount = 0.0625 * monthsConsistent;
+double repaymentAmount = fuelPrice * (1.25 - discount);
+
+// Minimum repayment eventually reaches 25%
+```
+
+---
+
+# 📚 What I Learned
+
+Building this project taught me a lot about:
+
+- Java File I/O
+- Validation systems
+- Regex patterns
+- Business logic implementation
+- Payment processing concepts
+- Error handling
+- Discount calculation systems
+
+One of the hardest parts was getting the discount logic correct and handling all South African registration validation formats.
+
+---
+
+# 🚧 Challenges Faced
+
+## Province Validation
+
+Each province has different vehicle registration formats, so regex validation became complicated.
+
+## File I/O Performance
+
+Reading large text files repeatedly slows down validation. A real-world system would use databases or APIs instead.
+
+## Discount Logic
+
+The yearly reset and progressive discount system required careful testing to avoid calculation mistakes.
+
+---
+
+# 🚀 Future Improvements
+
+Features I would add later:
+
+- Real API integration with government systems
+- Online payment gateway integration
+- Push notifications
+- Monthly fuel alerts
+- Admin dashboard
+- Cloud database
+- Mobile OTP verification
+
+---
+
+# ▶️ How To Run The Project
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/car-fuel-management.git
+```
+
+2. Open in Android Studio
+
+3. Add validation text files inside the assets folder
+
+4. Run on emulator or Android device
+
+---
+
+# 📂 Important Note About Data Files
+
+The following files are mock data for academic purposes:
+
+- stolen_cars.txt
+- roadworthy_cars.txt
+- id_verification.txt
+
+In a real system, these would be replaced with secure APIs connected to government services.
+
+---
+
+# 👨‍💻 Developer
+
+Built as a student Java project.
+
+**Name:** Your Name  
+**Course:** Diploma in ICT  
+**Email:** your.email@example.com  
+**GitHub:** github.com/yourusername
+
+---
+
+# ⚠️ Disclaimer
+
+This project is for educational purposes only and is not connected to real government systems or financial institutions.
+
+---
+
+<div align="center">
+
+## ☕ Built with Java, logic, debugging, and too much coffee.
+
+</div>
