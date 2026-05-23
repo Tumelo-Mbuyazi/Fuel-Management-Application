@@ -1,307 +1,97 @@
 # ⛽ Car Fuel Management Application
-![Platform](https://img.shields.io/badge/Platform-Java%20Application-brightgreen)
-![Language](https://img.shields.io/badge/Language-Java-orange)
-![Database](https://img.shields.io/badge/Database-MySQL%20%2F%20SQLite-blue)
-![Architecture](https://img.shields.io/badge/Architecture-Frontend%20%2B%20Backend-purple)
-![Validation](https://img.shields.io/badge/Validation-HomeAffairs%20%7C%20SAPS-red)
-![Payments](https://img.shields.io/badge/Payments-Debit%20Order%20%7C%20Google%20Pay-success)
-![Status](https://img.shields.io/badge/Status-Development-yellow)
 
-## 📱 Overview
+<div align="center">
 
-The Car Fuel Management Application is a Java-based system designed to help customers purchase fuel through a managed repayment and discount system. The application tracks customer fuel purchases, validates customer and vehicle information, and rewards loyal customers with long-term fuel discounts.
+![Platform](https://img.shields.io/badge/Platform-Java%20Desktop%20Application-brightgreen?style=for-the-badge)
+![Language](https://img.shields.io/badge/Language-Java-orange?style=for-the-badge)
+![Database](https://img.shields.io/badge/Database-MySQL%20%7C%20SQLite-blue?style=for-the-badge)
+![Architecture](https://img.shields.io/badge/Architecture-Frontend%20%2B%20Backend-purple?style=for-the-badge)
+![Payments](https://img.shields.io/badge/Payments-Google%20Pay%20%7C%20Debit%20Order-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow?style=for-the-badge)
 
-The system combines vehicle registration validation, customer profiling, fuel quotation generation, repayment management, and customer reward benefits into one application.
-
-This project was designed as an academic application that combines Java programming, object-oriented design, file handling, APIs, databases, multimedia, and business logic.
+</div>
 
 ---
 
-# 🎯 Purpose of the Application
+## 📱 About The Project
 
-The main purpose of the application is to:
+The **Car Fuel Management Application** is a Java-based system designed to help customers purchase fuel using a flexible repayment and discount model.
 
-- Allow users to purchase fuel at reduced rates
-- Track customer fuel purchase history
-- Reward loyal and consistent customers with discounts
-- Validate South African users and vehicles
-- Provide secure payment options
-- Automate fuel quotation and repayment calculations
+The system validates users and vehicles, calculates fuel quotations, manages repayments, and rewards loyal customers with long-term fuel discounts.
 
-The application is focused on creating a smart fuel repayment system where customers gradually pay less over time if they consistently use the service.
+This project combines:
 
----
-
-# 👤 User Registration Process
-
-Users must create an account before using the service.
-
-## Registration Details Required
-
-The system captures:
-
-- Name and surname
-- South African ID number
-- Home address
-- Car registration number
+- 🚗 Vehicle management
+- ⛽ Fuel quotation systems
+- 💳 Electronic payments
+- 📊 Customer reward tracking
+- 🔐 South African ID & vehicle validation
+- 📁 Java File Handling
+- 🧠 Business logic implementation
 
 ---
 
-# ✅ Validations
-
-## South African ID Validation
-
-The ID number is validated against a custom-built Home Affairs system to ensure:
-
-- The person is a valid South African citizen
-- The user can be traced
-
----
-
-## 🚗 Car Registration Validation
-
-The vehicle registration number is validated with:
-
-- Traffic Department
-- SAPS (South African Police Service)
-
-The system checks:
-
-- If the vehicle is roadworthy
-- If the vehicle has not been reported stolen
-
-The application uses **Java File I/O** to read registration information from files.
-
----
-
-## 📍 South African Province Registration Validation
-
-The registration number must match South African province formats such as:
-
-| Province | Example |
-|----------|----------|
-| Gauteng | CA 123-456 |
-| KwaZulu-Natal | ND 123456 |
-| Mpumalanga | MPM 123 MP |
-| Western Cape | CY 123456 |
-
-The system uses Java exception handling and validation logic to reject invalid registration formats.
-
----
-
-# 📷 Vehicle Image Capture
-
-The system captures a photo of the vehicle including its registration plate from either:
-
-- Front view
-- Back view
-
-This image is stored for verification purposes.
-
----
-
-# 🚘 Car Registration Process
-
-After user registration, customers register their vehicles.
-
-## Steps
-
-### 1. Select Vehicle
-
-The user selects a car model from a dropdown list.
-
-The vehicle list and fuel tank capacities are obtained from the:
-
-- Automobile Association of South Africa
-
----
-
-### 2. Fuel Capacity Generation
-
-The system automatically generates:
-
-- Fuel tank capacity
-- Estimated full tank fuel cost
-
----
-
-### 3. Fuel Quotation
-
-Fuel prices are retrieved from:
-
-- PetroleumSA
-
-The system calculates:
-
-- Current fuel cost
-- Repayment amount
-- Discount eligibility
-
----
-
-### 4. Accept or Decline Offer
-
-The customer can:
-
-- Accept the quotation
-- Decline the quotation
-
-If declined, the process ends.
-
----
-
-### 5. Repayment Date Selection
-
-The customer chooses a repayment date:
-
-- Within 30 days
-- Flexible date selection allowed
-
----
-
-### 6. Payment Options
-
-Customers can pay using:
-
-- Debit order
-- Bank card
-- Google Pay
-- Other electronic payment methods
-
----
-
-# 💰 Fuel Benefits for Consistent Customers
-
-The system rewards loyal customers.
-
-## Rules
-
-- Customers can purchase fuel once per month
-- First-time users repay:
-  - Full fuel amount + 25%
-  - Total repayment = 125%
-
----
-
-## 📉 Discount Progression
-
-If customers pay successfully within 30 days:
-
-- They qualify for a 6.25% discount
-- The discount applies to future purchases
-- Discounts continue improving over time
-
----
-
-## 🎯 Long-Term Benefits
-
-After consistent usage:
-
-- Customers gradually pay less
-- Discounts continue yearly
-- Eventually customers may only pay:
-  - 25% of the full fuel amount
-
-The system keeps percentages consistent even when:
-
-- Fuel prices increase
-- Customers change vehicles
-
----
-
-# ⚠️ Benefits for Non-Consistent Customers
-
-Customers who use the service less frequently still receive benefits.
-
-## Usage Between 4 and 11 Times Per Year
-
-- Receive 2.5% discount in year 2
-- Repayment becomes 122.5%
-
----
-
-## Usage Less Than 3 Times Per Year
-
-- Receive 1% discount in year 2
-- Repayment becomes 124%
-
----
-
-## Discount Adjustments
-
-Discounts may:
-
-- Stay the same
-- Increase
-- Reduce
-
-Depending on customer consistency.
-
----
-
-# 💳 Payment Integration
-
-The application supports electronic payment systems such as:
-
+# ✨ Main Features
+
+## 👤 User Registration
+- Register personal details
+- South African ID verification
+- Vehicle registration validation
+- Upload vehicle image
+
+## 🚘 Vehicle Management
+- Select vehicle model
+- Fuel tank capacity generation
+- Full tank fuel calculation
+- Roadworthy verification
+
+## 💰 Fuel Purchase System
+- Fuel quotation generation
+- Flexible repayment dates
+- Discount calculations
+- Monthly fuel purchases
+
+## 🎯 Customer Rewards
+- Consistent customer discounts
+- Long-term repayment reductions
+- Loyalty reward system
+- Automatic percentage calculations
+
+## 💳 Payment Integration
 - Debit Orders
 - Google Pay
 - Card Payments
-- Other Payment APIs
-
-The payment integration is part of the backend system.
+- Electronic payment support
 
 ---
 
-# 🏗️ System Structure
+# 🛠️ Technologies Used
 
-The application is divided into:
-
-## Front-End
-
-Handles:
-
-- User interface
-- Registration forms
-- Vehicle selection
-- Payment pages
-
-Technologies:
-- Java Swing / JavaFX / Android XML
+| Technology | Purpose |
+|------------|---------|
+| Java | Core programming |
+| JavaFX / Swing | User Interface |
+| MySQL / SQLite | Database |
+| File I/O | Vehicle validation |
+| APIs | Payment integration |
+| UML | System design |
 
 ---
 
-## Back-End
+# 🏗️ System Architecture
 
-Handles:
-
-- Business logic
-- Validation
-- Database operations
-- Discount calculations
-- File handling
-- APIs
-
-Technologies:
-- Java
-- File I/O
-- Databases
-- APIs
-
----
-
-# 🧠 Concepts Used
-
-This project uses:
-
-- Object-Oriented Programming (OOP)
-- Arrays
-- Control Structures
-- Exception Handling
-- UML Design
-- File Handling
-- Database Integration
-- Multimedia Handling
-- API Communication
+```text
+┌───────────────────────────────────────┐
+│           FRONT-END                  │
+│  Registration | Payments | UI        │
+├───────────────────────────────────────┤
+│           BUSINESS LOGIC             │
+│  Validation | Discounts | Quotations │
+├───────────────────────────────────────┤
+│             BACK-END                 │
+│ Database | APIs | File Handling      │
+└───────────────────────────────────────┘
+```
 
 ---
 
@@ -309,61 +99,46 @@ This project uses:
 
 | Page | Description |
 |------|-------------|
-| PAGE 1 | Login & Registration |
-| PAGE 2 | Personal Details |
-| PAGE 3 | Car Registration Details |
+| PAGE 1 | Login & Signup |
+| PAGE 2 | Personal Information |
+| PAGE 3 | Vehicle Registration |
 | PAGE 4 | Payment Summary |
 | PAGE 5 | API Integration |
 
 ---
 
-# 🛠️ Suggested Technologies
-
-| Technology | Purpose |
-|------------|---------|
-| Java | Main programming language |
-| JavaFX / Swing | GUI |
-| MySQL / SQLite | Database |
-| File I/O | Vehicle validation |
-| APIs | Payment & validation systems |
-| UML | System design |
-| GitHub | Version control |
-
----
-
 # 🚀 Future Improvements
 
-Features that can be added later:
-
-- Mobile application support
-- AI-based fraud detection
-- Real-time fuel station integration
-- GPS location services
-- SMS notifications
-- Biometric login
-- Cloud database hosting
+- 📍 GPS fuel station integration
+- 🤖 AI fraud detection
+- ☁️ Cloud database hosting
+- 📲 Mobile application version
+- 🔔 SMS & email notifications
+- 🔐 Biometric authentication
 
 ---
 
 # 👨‍💻 Developer Notes
 
-This application is an educational project focused on combining software development with real-world business logic.
+This project was created as an academic Java application focused on combining:
 
-The project demonstrates:
-
-- Java programming skills
-- System analysis
-- Database management
-- Business process implementation
-- API integration
-- Front-end and back-end development
+- Object-Oriented Programming
+- Business Analysis
+- Database Systems
+- API Integration
+- Java GUI Development
+- File Handling & Validation
 
 ---
 
 # ⚠️ Disclaimer
 
-This is an academic project and not an official fuel or financial service platform.
+This is an educational project and not an official financial or fuel service platform.
 
 ---
 
-## ☕ Built with Java, problem-solving, and late-night debugging.
+<div align="center">
+
+## ☕ Built with Java, logic, and late-night debugging sessions.
+
+</div>
