@@ -1,144 +1,108 @@
-# ⛽ Car Fuel Management Application
+# Car Fuel Management Application
 
-<div align="center">
+**An app that helps South Africans buy fuel at discounted rates based on their loyalty**
 
-![Platform](https://img.shields.io/badge/Platform-Java%20Desktop%20Application-brightgreen?style=for-the-badge)
-![Language](https://img.shields.io/badge/Language-Java-orange?style=for-the-badge)
-![Database](https://img.shields.io/badge/Database-MySQL%20%7C%20SQLite-blue?style=for-the-badge)
-![Architecture](https://img.shields.io/badge/Architecture-Frontend%20%2B%20Backend-purple?style=for-the-badge)
-![Payments](https://img.shields.io/badge/Payments-Google%20Pay%20%7C%20Debit%20Order-success?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow?style=for-the-badge)
+I built this app to solve a simple problem - fuel is expensive, and loyal customers should get better deals. The app tracks how often someone buys fuel through us and gives them bigger discounts the more they use the service.
 
-</div>
+## What does this app actually do?
 
----
+Think of it like a fuel subscription service. You sign up, register your car, and buy fuel through us once per month. Your first purchase costs 125% of the fuel price (ouch, I know). But if you pay on time and keep using the service, your price drops - eventually down to just 25% of the fuel price.
 
-## 📱 About The Project
+**The discount system works like this:**
 
-The **Car Fuel Management Application** is a Java-based system designed to help customers purchase fuel using a flexible repayment and discount model.
+| Purchase # | What you pay |
+|------------|--------------|
+| 1st time | 125% of fuel price |
+| 2nd purchase | 118.75% (6.25% off) |
+| 3rd purchase | 112.5% (another 6.25% off) |
+| ... continues ... | |
+| After 12 purchases | 25% of fuel price |
 
-The system validates users and vehicles, calculates fuel quotations, manages repayments, and rewards loyal customers with long-term fuel discounts.
+Yes, you read that right. Loyal customers eventually pay only a quarter of what fuel actually costs.
 
-This project combines:
+## How registration works
 
-- 🚗 Vehicle management
-- ⛽ Fuel quotation systems
-- 💳 Electronic payments
-- 📊 Customer reward tracking
-- 🔐 South African ID & vehicle validation
-- 📁 Java File Handling
-- 🧠 Business logic implementation
+**Step 1: Personal details**
+- Name, surname, ID number, home address, car registration
+- Your ID gets validated with Home Affairs (we check you're a real South African)
+- Your car registration gets checked with Traffic Department (is the car roadworthy?)
+- Also checked with SAPS (is the car stolen?)
 
----
+**Step 2: Car details**
+- Pick your car model from a dropdown list
+- The system knows your fuel tank size (data from AA South Africa)
+- It calculates your full tank price using current fuel prices (from PetroleumSA)
 
-# ✨ Main Features
+**Step 3: Accept or decline**
+- You see the quotation and decide if you want to proceed
+- If yes, you choose a repayment date (within 30 days)
+- Payment happens via debit order or card
 
-## 👤 User Registration
-- Register personal details
-- South African ID verification
-- Vehicle registration validation
-- Upload vehicle image
+## The rules (important bit)
 
-## 🚘 Vehicle Management
-- Select vehicle model
-- Fuel tank capacity generation
-- Full tank fuel calculation
-- Roadworthy verification
+**For consistent customers (using service every month):**
+- First purchase: 125% of fuel price
+- Each successful on-time payment gives you 6.25% discount for next purchase
+- After 12 months of consistent use, you pay only 25% of fuel price
+- After one year, benefits reset but you start at 5% discount (not zero)
 
-## 💰 Fuel Purchase System
-- Fuel quotation generation
-- Flexible repayment dates
-- Discount calculations
-- Monthly fuel purchases
+**For non-consistent customers (skip months):**
+- Use service 4-11 times per year → 2.5% discount in year 2
+- Use service less than 3 times per year → 1% discount in year 2
+- You can upgrade to higher discounts if you become consistent
 
-## 🎯 Customer Rewards
-- Consistent customer discounts
-- Long-term repayment reductions
-- Loyalty reward system
-- Automatic percentage calculations
+**One important rule:** You can only buy fuel once per month. No exceptions.
 
-## 💳 Payment Integration
-- Debit Orders
+## How I built this
+
+**Frontend:** Android (Java, XML layouts)
+**Backend:** Java with file I/O for validations
+
+The app has 4 main screens:
+
+1. **Registration & Login** - Username and password
+2. **Personal Details** - Name, ID, address, car registration
+3. **Car Details** - Select model, see fuel capacity and price
+4. **Payment Summary** - Quotation and repayment options
+
+## Validations (the tricky part)
+
+This was the hardest part to implement:
+
+**ID Number Validation:**
+- Must be a valid South African ID
+- Verified through a custom "Home Affairs" validation system
+- Uses Java file I/O to read from validation files
+
+**Car Registration Validation:**
+- Must match format of one of 9 South African provinces
+- Verified with custom "Traffic Department" system
+- Checked against "SAPS" stolen vehicle database
+- All using Java file I/O strategy
+
+**Province registration formats:**
+- Gauteng: XX XX XX GP
+- Western Cape: XX XX XX WC
+- KwaZulu-Natal: XX XX XX ZN
+- (and so on for all 9 provinces)
+
+**Car Model Validation:**
+- Car models come from AA South Africa data
+- Includes fuel tank capacity for each model
+- Periodically updated when new cars come out
+
+**Fuel Prices:**
+- Current prices from PetroleumSA
+- Updated when fuel prices change (regular hikes/reductions)
+
+## Payment API
+
+We need to integrate a payment API for:
+- Debit orders
+- Card payments
 - Google Pay
-- Card Payments
-- Electronic payment support
+- Other electronic payments
 
----
+(This part is still in progress - looking at options like PayFast, Yoco, or Stitch)
 
-# 🛠️ Technologies Used
-
-| Technology | Purpose |
-|------------|---------|
-| Java | Core programming |
-| JavaFX / Swing | User Interface |
-| MySQL / SQLite | Database |
-| File I/O | Vehicle validation |
-| APIs | Payment integration |
-| UML | System design |
-
----
-
-# 🏗️ System Architecture
-
-```text
-┌───────────────────────────────────────┐
-│           FRONT-END                  │
-│  Registration | Payments | UI        │
-├───────────────────────────────────────┤
-│           BUSINESS LOGIC             │
-│  Validation | Discounts | Quotations │
-├───────────────────────────────────────┤
-│             BACK-END                 │
-│ Database | APIs | File Handling      │
-└───────────────────────────────────────┘
-```
-
----
-
-# 📄 Application Pages
-
-| Page | Description |
-|------|-------------|
-| PAGE 1 | Login & Signup |
-| PAGE 2 | Personal Information |
-| PAGE 3 | Vehicle Registration |
-| PAGE 4 | Payment Summary |
-| PAGE 5 | API Integration |
-
----
-
-# 🚀 Future Improvements
-
-- 📍 GPS fuel station integration
-- 🤖 AI fraud detection
-- ☁️ Cloud database hosting
-- 📲 Mobile application version
-- 🔔 SMS & email notifications
-- 🔐 Biometric authentication
-
----
-
-# 👨‍💻 Developer Notes
-
-This project was created as an academic Java application focused on combining:
-
-- Object-Oriented Programming
-- Business Analysis
-- Database Systems
-- API Integration
-- Java GUI Development
-- File Handling & Validation
-
----
-
-# ⚠️ Disclaimer
-
-This is an educational project and not an official financial or fuel service platform.
-
----
-
-<div align="center">
-
-## ☕ Built with Java, logic, and late-night debugging sessions.
-
-</div>
+## Project structure
